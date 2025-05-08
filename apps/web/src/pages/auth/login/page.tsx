@@ -9,17 +9,19 @@ const LoginPage = () => {
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
 
-        
         // Call your login function here
         console.log("Logging in with:", { email, password });
-        authContext.login({email, password});
-    }
+        authContext.login({ email, password });
+    };
 
     return (
         <>
             <form onSubmit={onSubmit}>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700"
+                    >
                         Email
                     </label>
                     <input
@@ -31,7 +33,10 @@ const LoginPage = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    <label
+                        htmlFor="password"
+                        className="block text-sm font-medium text-gray-700"
+                    >
                         Password
                     </label>
                     <input
@@ -50,7 +55,7 @@ const LoginPage = () => {
                 </button>
             </form>
         </>
-    )
-}
+    );
+};
 
 export default LoginPage;

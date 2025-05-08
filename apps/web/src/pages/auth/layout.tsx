@@ -1,4 +1,4 @@
-import { Outlet } from "react-router"
+import { Outlet } from "react-router";
 
 const AuthLayout = () => {
     return (
@@ -6,7 +6,7 @@ const AuthLayout = () => {
             <h1>Authentication</h1>
             <Outlet />
         </>
-    )
-}
+    );
+};
 
 export default AuthLayout;

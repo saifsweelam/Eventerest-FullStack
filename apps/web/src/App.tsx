@@ -1,28 +1,26 @@
-import { BrowserRouter, Route, Routes } from "react-router"
-import AuthLayout from "./pages/auth/layout"
-import AuthProvider from "./providers/authProvider"
-import LoginPage from "./pages/auth/login/page"
-import RegisterPage from "./pages/auth/register/page"
+import { BrowserRouter, Route, Routes } from "react-router";
+import AuthLayout from "./pages/auth/layout";
+import AuthProvider from "./providers/authProvider";
+import LoginPage from "./pages/auth/login/page";
+import RegisterPage from "./pages/auth/register/page";
 
 function App() {
+    return (
+        <>
+            <BrowserRouter>
+                <AuthProvider>
+                    <Routes>
+                        <Route index element={<div>Home</div>} />
 
-  return (
-    <>
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route index element={<div>Home</div>} />
-
-            <Route element={<AuthLayout/>}>
-              <Route path="login" element={<LoginPage/>} />
-              <Route path="register" element={<RegisterPage/>} />
-            </Route>
-
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </>
-  )
+                        <Route element={<AuthLayout />}>
+                            <Route path="login" element={<LoginPage />} />
+                            <Route path="register" element={<RegisterPage />} />
+                        </Route>
+                    </Routes>
+                </AuthProvider>
+            </BrowserRouter>
+        </>
+    );
 }
 
-export default App
+export default App;

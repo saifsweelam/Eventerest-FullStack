@@ -6,13 +6,13 @@ import type { BetterFetchError } from "better-auth/react";
 export type LoginPayload = {
     email: string;
     password: string;
-}
+};
 
 export type RegisterPayload = {
     name: string;
     email: string;
     password: string;
-}
+};
 
 export type AuthProviderProps = {
     login: (payload: LoginPayload) => void;
@@ -40,21 +40,27 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const logout = async () => {
         return await authClient.signOut();
-    }
+    };
 
     const register = async (payload: RegisterPayload) => {
         return await authClient.signUp.email(payload);
     };
 
-    return <AuthContext.Provider value={{
-        login,
-        logout,
-        register,
-        user: data?.user,
-        session: data?.session,
-        isPending,
-        error,
-    }}>{children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider
+            value={{
+                login,
+                logout,
+                register,
+                user: data?.user,
+                session: data?.session,
+                isPending,
+                error,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export default AuthProvider;
