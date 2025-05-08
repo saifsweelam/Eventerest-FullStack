@@ -7,12 +7,12 @@ const app = express();
 
 app.use(
     cors({
-        origin: "*",
+        origin: "http://localhost:5173",
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     }),
 );
 
-app.use("/api/auth/*splat", toNodeHandler(auth));
+app.all("/api/auth/{*any}", toNodeHandler(auth));
 
 export default app;
