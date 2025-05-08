@@ -9,6 +9,7 @@
     "strict": true,
     "noImplicitAny": true,
     "useUnknownInCatchVariables": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowJs": true,
   }
 }
