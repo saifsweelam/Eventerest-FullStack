@@ -1,9 +1,8 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useAuth } from "../../../providers/authProvider";
 
 export default function RegisterPage() {
     const authContext = useAuth();
-    const navigate = useNavigate();
 
     const register = async (formData: FormData) => {
         const name = formData.get("name");
@@ -19,8 +18,6 @@ export default function RegisterPage() {
         }
 
         await authContext.register({ name, email, password });
-
-        navigate("/");
     };
 
     return (

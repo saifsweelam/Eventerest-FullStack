@@ -1,7 +1,10 @@
 import { Link } from "react-router";
 import Logo from "../logo";
+import { useAuth } from "../../providers/authProvider";
 
 export default function Header() {
+    const { user, logout } = useAuth();
+
     return (
         <header className="z-30 mt-2 w-full md:mt-5">
             <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -12,7 +15,21 @@ export default function Header() {
                     </div>
 
                     {/* Desktop sign in links */}
-                    <ul className="flex flex-1 items-center justify-end gap-3">
+                    {user ? (<ul className="flex flex-1 items-center justify-end gap-3">
+                        <li>
+                            <span className="relative py-[5px] px-3 text-gray-300">
+                                {user.name}
+                            </span>
+                        </li>
+                        <li>
+                            <button
+                                onClick={logout}
+                                className="btn-sm bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] py-[5px] px-3 text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%]"
+                            >
+                                Logout
+                            </button>
+                        </li>
+                    </ul>) : (<ul className="flex flex-1 items-center justify-end gap-3">
                         <li>
                             <Link
                                 to="/login"
@@ -29,7 +46,8 @@ export default function Header() {
                                 Register
                             </Link>
                         </li>
-                    </ul>
+                    </ul>)}
+
                 </div>
             </div>
         </header>

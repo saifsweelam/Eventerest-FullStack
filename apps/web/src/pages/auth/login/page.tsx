@@ -1,9 +1,8 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useAuth } from "../../../providers/authProvider";
 
 export default function LoginPage() {
     const authContext = useAuth();
-    const navigate = useNavigate();
 
     const login = async (formData: FormData) => {
         const email = formData.get("email");
@@ -14,8 +13,6 @@ export default function LoginPage() {
         }
 
         await authContext.login({ email, password });
-
-        navigate("/");
     };
 
     return (
@@ -40,6 +37,7 @@ export default function LoginPage() {
                                 </label>
                                 <input
                                     id="email"
+                                    name="email"
                                     type="email"
                                     className="form-input w-full"
                                     placeholder="Your email"
@@ -56,6 +54,7 @@ export default function LoginPage() {
                                 </div>
                                 <input
                                     id="password"
+                                    name="password"
                                     type="password"
                                     className="form-input w-full"
                                     placeholder="Your password"
@@ -63,7 +62,7 @@ export default function LoginPage() {
                             </div>
                         </div>
                         <div className="mt-6 space-y-5">
-                            <button className="btn w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%]">
+                            <button type="submit" className="btn w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%]">
                                 Sign in
                             </button>
                         </div>
