@@ -1,12 +1,12 @@
 import { Outlet } from "react-router";
+import PageIllustration from "../../components/page-illustration";
 
-const AuthLayout = () => {
+export default function AuthLayout() {
     return (
-        <>
-            <h1>Authentication</h1>
-            <Outlet />
-        </>
-    );
-};
+        <main className="relative flex grow flex-col">
+            <PageIllustration multiple />
 
-export default AuthLayout;
+            <Outlet />
+        </main>
+    );
+}

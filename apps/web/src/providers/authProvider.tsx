@@ -15,9 +15,9 @@ export type RegisterPayload = {
 };
 
 export type AuthProviderProps = {
-    login: (payload: LoginPayload) => void;
-    logout: () => void;
-    register: (payload: RegisterPayload) => void;
+    login: (payload: LoginPayload) => Promise<object>;
+    logout: () => Promise<object>;
+    register: (payload: RegisterPayload) => Promise<object>;
     user?: User;
     session?: Session;
     isPending?: boolean;
@@ -25,9 +25,9 @@ export type AuthProviderProps = {
 };
 
 const AuthContext = createContext<AuthProviderProps>({
-    login: () => {},
-    logout: () => {},
-    register: () => {},
+    login: () => new Promise(() => {}),
+    logout: () => new Promise(() => {}),
+    register: () => new Promise(() => {}),
     error: null,
 });
 

@@ -1,61 +1,85 @@
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../../providers/authProvider";
 
-const LoginPage = () => {
+export default function LoginPage() {
     const authContext = useAuth();
+    const navigate = useNavigate();
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const email = formData.get("email") as string;
-        const password = formData.get("password") as string;
+    const login = async (formData: FormData) => {
+        const email = formData.get("email");
+        const password = formData.get("password");
 
-        // Call your login function here
-        console.log("Logging in with:", { email, password });
-        authContext.login({ email, password });
+        if (typeof email !== "string" || typeof password !== "string") {
+            throw new Error("Invalid form data");
+        }
+
+        await authContext.login({ email, password });
+
+        navigate("/");
     };
 
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <div className="mb-4">
-                    <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
-                    />
+        <section>
+            <div className="mx-auto max-w-6xl px-4 sm:px-6">
+                <div className="py-12 md:py-20">
+                    {/* Section header */}
+                    <div className="pb-12 text-center">
+                        <h1 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
+                            Welcome back
+                        </h1>
+                    </div>
+                    {/* Contact form */}
+                    <form action={login} className="mx-auto max-w-[400px]">
+                        <div className="space-y-5">
+                            <div>
+                                <label
+                                    className="mb-1 block text-sm font-medium text-indigo-200/65"
+                                    htmlFor="email"
+                                >
+                                    Email
+                                </label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    className="form-input w-full"
+                                    placeholder="Your email"
+                                />
+                            </div>
+                            <div>
+                                <div className="mb-1 flex items-center justify-between gap-3">
+                                    <label
+                                        className="block text-sm font-medium text-indigo-200/65"
+                                        htmlFor="password"
+                                    >
+                                        Password
+                                    </label>
+                                </div>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    className="form-input w-full"
+                                    placeholder="Your password"
+                                />
+                            </div>
+                        </div>
+                        <div className="mt-6 space-y-5">
+                            <button className="btn w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%]">
+                                Sign in
+                            </button>
+                        </div>
+                    </form>
+                    {/* Bottom link */}
+                    <div className="mt-6 text-center text-sm text-indigo-200/65">
+                        Don't you have an account?{" "}
+                        <Link
+                            className="font-medium text-indigo-500"
+                            to="/register"
+                        >
+                            Sign Up
+                        </Link>
+                    </div>
                 </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="password"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
-                >
-                    Login
-                </button>
-            </form>
-        </>
+            </div>
+        </section>
     );
-};
-
-export default LoginPage;
+}

@@ -1,83 +1,111 @@
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../../providers/authProvider";
 
-const RegisterPage = () => {
+export default function RegisterPage() {
     const authContext = useAuth();
+    const navigate = useNavigate();
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const name = formData.get("name") as string;
-        const email = formData.get("email") as string;
-        const password = formData.get("password") as string;
+    const register = async (formData: FormData) => {
+        const name = formData.get("name");
+        const email = formData.get("email");
+        const password = formData.get("password");
 
-        // Call your register function here
-        console.log("Registering with:", { name, email, password });
-        authContext.register({ name, email, password });
+        if (
+            typeof name !== "string" ||
+            typeof email !== "string" ||
+            typeof password !== "string"
+        ) {
+            throw new Error("Invalid form data");
+        }
+
+        await authContext.register({ name, email, password });
+
+        navigate("/");
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-3xl font-bold">Register</h1>
-            <p className="mt-4 text-gray-600">Create a new account</p>
-
-            <form
-                onSubmit={onSubmit}
-                className="mt-6 w-full max-w-sm space-y-4"
-            >
-                <div>
-                    <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
-                    />
+        <section>
+            <div className="mx-auto max-w-6xl px-4 sm:px-6">
+                <div className="py-12 md:py-20">
+                    {/* Section header */}
+                    <div className="pb-12 text-center">
+                        <h1 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
+                            Create an account
+                        </h1>
+                    </div>
+                    {/* Contact form */}
+                    <form action={register} className="mx-auto max-w-[400px]">
+                        <div className="space-y-5">
+                            <div>
+                                <label
+                                    className="mb-1 block text-sm font-medium text-indigo-200/65"
+                                    htmlFor="name"
+                                >
+                                    Name <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    className="form-input w-full"
+                                    placeholder="Your full name"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    className="mb-1 block text-sm font-medium text-indigo-200/65"
+                                    htmlFor="email"
+                                >
+                                    Work Email{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    className="form-input w-full"
+                                    placeholder="Your work email"
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    className="block text-sm font-medium text-indigo-200/65"
+                                    htmlFor="password"
+                                >
+                                    Password{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    className="form-input w-full"
+                                    placeholder="Password (at least 10 characters)"
+                                />
+                            </div>
+                        </div>
+                        <div className="mt-6 space-y-5">
+                            <button
+                                type="submit"
+                                className="btn w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%]"
+                            >
+                                Register
+                            </button>
+                        </div>
+                    </form>
+                    {/* Bottom link */}
+                    <div className="mt-6 text-center text-sm text-indigo-200/65">
+                        Already have an account?{" "}
+                        <Link
+                            className="font-medium text-indigo-500"
+                            to="/login"
+                        >
+                            Sign in
+                        </Link>
+                    </div>
                 </div>
-                <div>
-                    <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="password"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
-                >
-                    Register
-                </button>
-            </form>
-        </div>
+            </div>
+        </section>
     );
-};
-
-export default RegisterPage;
+}
