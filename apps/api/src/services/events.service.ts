@@ -69,10 +69,12 @@ export default class EventsService {
                 startDate: data.startDate,
                 endDate: data.endDate,
                 location: data.location,
-                tickets: data.tickets ? {
-                    deleteMany: {},
-                    create: data.tickets,
-                } : undefined,
+                tickets: data.tickets
+                    ? {
+                          deleteMany: {},
+                          create: data.tickets,
+                      }
+                    : undefined,
             },
             include: this.defaultInclude,
         });

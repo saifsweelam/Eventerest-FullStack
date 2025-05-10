@@ -14,7 +14,9 @@ export const embedUserMiddleware: RequestHandler = async (req, res, next) => {
     next();
 };
 
-export const requireAuth = <P, R, B, Q>(permissions?: Permissions): RequestHandler<P, R, B, Q> => {
+export const requireAuth = <P, R, B, Q>(
+    permissions?: Permissions,
+): RequestHandler<P, R, B, Q> => {
     return async (req, res, next) => {
         if (!req.sessionData) {
             throw new Error("Unauthorized");

@@ -2,7 +2,11 @@ import { Router } from "express";
 import { validateRequest } from "../middlewares/validate.middleware";
 import { requireAuth } from "../middlewares/auth.middleware";
 import BookingsService from "../services/bookings.service";
-import { bookingIdParamsSchema, createBookingBodySchema, getBookingsCollectionQuerySchema } from "../schemas/bookings.schemas";
+import {
+    bookingIdParamsSchema,
+    createBookingBodySchema,
+    getBookingsCollectionQuerySchema,
+} from "../schemas/bookings.schemas";
 import { collectionQuerySchema } from "../schemas/generic.schemas";
 
 const bookingsService = new BookingsService();
@@ -11,20 +15,18 @@ const router = Router();
 
 // Get All Bookings Collection
 router.get(
-    '/',
+    "/",
     requireAuth({ booking: ["read"] }),
     validateRequest({ query: getBookingsCollectionQuerySchema }),
     async (req, res) => {
-        const response = await bookingsService.getBookingsCollection(
-            req.query,
-        );
+        const response = await bookingsService.getBookingsCollection(req.query);
         res.status(200).json(response);
     },
 );
 
 // Get User Bookings Collection
 router.get(
-    '/me',
+    "/me",
     requireAuth({ booking: ["read:own"] }),
     validateRequest({ query: collectionQuerySchema }),
     async (req, res) => {
@@ -38,7 +40,7 @@ router.get(
 
 // Create a new booking
 router.post(
-    '/',
+    "/",
     requireAuth({ booking: ["create"] }),
     validateRequest({ body: createBookingBodySchema }),
     async (req, res) => {
@@ -52,13 +54,19 @@ router.post(
 
 // Get Booking by ID
 router.get(
-    '/:bookingId',
+    "/:bookingId",
     requireAuth(),
     validateRequest({ params: bookingIdParamsSchema }),
     async (req, res) => {
         const booking = await bookingsService.getBooking(req.params.bookingId);
 
-        if (!await bookingsService.bookingActionPermission(booking, req.sessionData!.user.id, 'read')) {
+        if (
+            !(await bookingsService.bookingActionPermission(
+                booking,
+                req.sessionData!.user.id,
+                "read",
+            ))
+        ) {
             throw new Error("Forbidden");
         }
 
@@ -68,13 +76,22 @@ router.get(
 
 // Update Booking by ID
 router.patch(
-    '/:bookingId',
+    "/:bookingId",
     requireAuth({ booking: ["update"] }),
-    validateRequest({ params: bookingIdParamsSchema, body: createBookingBodySchema }),
+    validateRequest({
+        params: bookingIdParamsSchema,
+        body: createBookingBodySchema,
+    }),
     async (req, res) => {
         const booking = await bookingsService.getBooking(req.params.bookingId);
 
-        if (!await bookingsService.bookingActionPermission(booking, req.sessionData!.user.id, 'update')) {
+        if (
+            !(await bookingsService.bookingActionPermission(
+                booking,
+                req.sessionData!.user.id,
+                "update",
+            ))
+        ) {
             throw new Error("Forbidden");
         }
 
@@ -88,13 +105,19 @@ router.patch(
 
 // Delete Booking by ID
 router.delete(
-    '/:bookingId',
+    "/:bookingId",
     requireAuth({ booking: ["delete"] }),
     validateRequest({ params: bookingIdParamsSchema }),
     async (req, res) => {
         const booking = await bookingsService.getBooking(req.params.bookingId);
 
-        if (!await bookingsService.bookingActionPermission(booking, req.sessionData!.user.id, 'delete')) {
+        if (
+            !(await bookingsService.bookingActionPermission(
+                booking,
+                req.sessionData!.user.id,
+                "delete",
+            ))
+        ) {
             throw new Error("Forbidden");
         }
 

@@ -50,7 +50,10 @@ router.get(
 router.patch(
     "/:eventId",
     requireAuth({ event: ["update"] }),
-    validateRequest({ params: eventIdParamsSchema, body: updateEventBodySchema }),
+    validateRequest({
+        params: eventIdParamsSchema,
+        body: updateEventBodySchema,
+    }),
     async (req, res) => {
         const event = await eventsService.updateEvent(
             req.params.eventId,

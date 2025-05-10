@@ -1,7 +1,11 @@
 import { Booking } from "../generated/prisma";
 import { isPermitted } from "../lib/auth";
 import { prisma } from "../lib/db";
-import { CreateBookingBody, GetBookingsCollectionQuery, UpdateBookingBody } from "../schemas/bookings.schemas";
+import {
+    CreateBookingBody,
+    GetBookingsCollectionQuery,
+    UpdateBookingBody,
+} from "../schemas/bookings.schemas";
 import { CollectionQuery } from "../schemas/generic.schemas";
 import { getCollectionArgs } from "../utils/collections.util";
 
@@ -10,7 +14,7 @@ export default class BookingsService {
         event: true,
         user: true,
         ticket: true,
-    }
+    };
 
     async getBookingsCollection(query: GetBookingsCollectionQuery) {
         const args = {
@@ -20,7 +24,7 @@ export default class BookingsService {
                 eventId: query.eventId,
                 ticketId: query.ticketId,
                 userId: query.userId,
-            }
+            },
         };
 
         const results = await prisma.$transaction([
@@ -38,7 +42,7 @@ export default class BookingsService {
         return this.getBookingsCollection({
             ...query,
             userId,
-        })
+        });
     }
 
     async getBooking(id: string) {
@@ -157,12 +161,20 @@ export default class BookingsService {
         });
     }
 
-    async bookingActionPermission(booking: Booking, userId: string, action: 'read' | 'update' | 'delete') {
-        const anonymousAccess = await isPermitted(userId, { booking: [action] });
+    async bookingActionPermission(
+        booking: Booking,
+        userId: string,
+        action: "read" | "update" | "delete",
+    ) {
+        const anonymousAccess = await isPermitted(userId, {
+            booking: [action],
+        });
         if (anonymousAccess) {
             return true;
         }
-        const ownerAccess = booking.userId === userId && await isPermitted(userId, { booking: [`${action}:own`] });
+        const ownerAccess =
+            booking.userId === userId &&
+            (await isPermitted(userId, { booking: [`${action}:own`] }));
         if (ownerAccess) {
             return true;
         }
