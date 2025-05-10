@@ -5,8 +5,12 @@ export const eventIdParamsSchema = z.object({
     eventId: z.string().cuid("Invalid event ID"),
 });
 
-export const getEventsCollectionQuerySchema = z.object({}).and(collectionQuerySchema);
-export type GetEventsCollectionQuery = z.output<typeof getEventsCollectionQuerySchema>;
+export const getEventsCollectionQuerySchema = z
+    .object({})
+    .and(collectionQuerySchema);
+export type GetEventsCollectionQuery = z.output<
+    typeof getEventsCollectionQuerySchema
+>;
 
 export const createEventBodySchema = z.object({
     name: z.string().min(1, "Event name is required"),
@@ -20,8 +24,11 @@ export const createEventBodySchema = z.object({
         z.object({
             name: z.string().min(1, "Ticket name is required"),
             price: z.number().positive("Ticket price must be positive"),
-            quantity: z.number().int().positive("Ticket quantity must be positive"),
-        })
+            quantity: z
+                .number()
+                .int()
+                .positive("Ticket quantity must be positive"),
+        }),
     ),
-})
+});
 export type CreateEventBody = z.output<typeof createEventBodySchema>;

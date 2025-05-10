@@ -21,11 +21,11 @@ export const requireAuth = (permissions?: Permissions): RequestHandler => {
         }
 
         if (permissions) {
-            if (!await isPermitted(req.sessionData.user.id, permissions)) {
+            if (!(await isPermitted(req.sessionData.user.id, permissions))) {
                 throw new Error("Forbidden");
             }
         }
 
         next();
-    }
-}
+    };
+};

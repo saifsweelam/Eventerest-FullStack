@@ -3,15 +3,23 @@ import { defaultStatements, adminAc } from "better-auth/plugins/admin/access";
 
 export const statements = {
     ...defaultStatements,
-    event: ['create', 'read', 'update', 'delete'],
-    booking: ['create', 'read', 'update', 'delete', 'read:own', 'update:own', 'delete:own'],
+    event: ["create", "read", "update", "delete"],
+    booking: [
+        "create",
+        "read",
+        "update",
+        "delete",
+        "read:own",
+        "update:own",
+        "delete:own",
+    ],
 } as const;
 
 export type Permissions = {
-    user?: typeof statements.user[number][];
-    session?: typeof statements.session[number][];
-    event?: typeof statements.event[number][];
-    booking?: typeof statements.booking[number][];
+    user?: (typeof statements.user)[number][];
+    session?: (typeof statements.session)[number][];
+    event?: (typeof statements.event)[number][];
+    booking?: (typeof statements.booking)[number][];
 };
 
 export const accessControl = createAccessControl(statements);

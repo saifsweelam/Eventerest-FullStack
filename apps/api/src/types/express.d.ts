@@ -4,11 +4,11 @@ declare global {
     namespace Express {
         export interface Request {
             sessionData: {
-                user: User,
-                session: Session
+                user: User;
+                session: Session;
             } | null;
         }
     }
 }
 
-export { };
+export {};
