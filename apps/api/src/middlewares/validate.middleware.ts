@@ -17,7 +17,20 @@ export const validateRequest = <
     z.output<B>,
     z.output<Q>
 > => (req, res, next) => {
-    
+
+    Object.defineProperty(req, 'params', {
+        value: req.params,
+        writable: true,
+    });
+    Object.defineProperty(req, 'query', {
+        value: req.query,
+        writable: true,
+    });
+    Object.defineProperty(req, 'body', {
+        value: req.body,
+        writable: true,
+    });
+
     if (schema.params) {
         req.params = schema.params.parse(req.params);
     }
