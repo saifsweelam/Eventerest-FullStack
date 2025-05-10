@@ -34,7 +34,7 @@ export default class BookingsService {
 
         return {
             total: results[0],
-            bookings: results[1],
+            items: results[1],
         };
     }
 

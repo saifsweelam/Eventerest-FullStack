@@ -26,7 +26,7 @@ export default class EventsService {
 
         return {
             total: results[0],
-            events: results[1],
+            items: results[1],
         };
     }
 
