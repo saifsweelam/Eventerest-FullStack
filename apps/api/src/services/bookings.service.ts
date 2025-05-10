@@ -53,37 +53,108 @@ export default class BookingsService {
     }
 
     async createBooking(data: CreateBookingBody, userId: string) {
-        const booking = await prisma.booking.create({
-            data: {
-                eventId: data.eventId,
-                ticketId: data.ticketId,
-                userId,
-            },
-            include: this.defaultInclude,
-        });
+        return await prisma.$transaction(async (context) => {
+            const upcomingEvent = await context.event.findFirst({
+                where: {
+                    id: data.eventId,
+                    startDate: {
+                        gte: new Date(),
+                    },
+                },
+            });
+            if (!upcomingEvent) {
+                throw new Error("Event not found or already started");
+            }
 
-        return booking;
+            const ticket = await context.ticket.findUnique({
+                where: { id: data.ticketId },
+            });
+            if (!ticket || ticket.quantity <= 0) {
+                throw new Error("Ticket not available");
+            }
+
+            await context.ticket.update({
+                where: { id: data.ticketId },
+                data: {
+                    quantity: ticket.quantity - 1,
+                },
+            });
+
+            return context.booking.create({
+                data: {
+                    eventId: data.eventId,
+                    ticketId: data.ticketId,
+                    userId,
+                },
+                include: this.defaultInclude,
+            });
+        });
     }
 
     async updateBooking(id: string, data: UpdateBookingBody) {
-        const booking = await prisma.booking.update({
-            where: { id },
-            data: {
-                ticketId: data.ticketId,
-            },
-            include: this.defaultInclude,
-        });
+        return await prisma.$transaction(async (context) => {
+            const booking = await context.booking.findUnique({
+                where: { id },
+                include: { ticket: true },
+            });
+            if (!booking) {
+                throw new Error("Booking not found");
+            }
 
-        return booking;
+            const ticket = await context.ticket.findUnique({
+                where: { id: data.ticketId },
+            });
+            if (!ticket || ticket.quantity <= 0) {
+                throw new Error("Ticket not available");
+            }
+
+            await context.ticket.update({
+                where: { id: booking.ticketId },
+                data: {
+                    quantity: booking.ticket.quantity + 1,
+                },
+            });
+
+            await context.ticket.update({
+                where: { id: data.ticketId },
+                data: {
+                    quantity: ticket.quantity - 1,
+                },
+            });
+
+            return context.booking.update({
+                where: { id },
+                data: {
+                    ticketId: data.ticketId,
+                },
+                include: this.defaultInclude,
+            });
+        });
     }
 
     async deleteBooking(id: string) {
-        const booking = await prisma.booking.delete({
-            where: { id },
-            include: this.defaultInclude,
-        });
+        return await prisma.$transaction(async (context) => {
+            const booking = await context.booking.findUnique({
+                where: { id },
+                include: { ticket: true },
+            });
 
-        return booking;
+            if (!booking) {
+                throw new Error("Booking not found");
+            }
+
+            await context.ticket.update({
+                where: { id: booking.ticketId },
+                data: {
+                    quantity: booking.ticket.quantity + 1,
+                },
+            });
+
+            return context.booking.delete({
+                where: { id },
+                include: this.defaultInclude,
+            });
+        });
     }
 
     async bookingActionPermission(booking: Booking, userId: string, action: 'read' | 'update' | 'delete') {

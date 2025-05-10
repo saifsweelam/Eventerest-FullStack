@@ -15,10 +15,10 @@ router.get(
     requireAuth({ booking: ["read"] }),
     validateRequest({ query: getBookingsCollectionQuerySchema }),
     async (req, res) => {
-        const bookings = await bookingsService.getBookingsCollection(
+        const response = await bookingsService.getBookingsCollection(
             req.query,
         );
-        res.status(200).json(bookings);
+        res.status(200).json(response);
     },
 );
 
@@ -28,11 +28,11 @@ router.get(
     requireAuth({ booking: ["read:own"] }),
     validateRequest({ query: collectionQuerySchema }),
     async (req, res) => {
-        const bookings = await bookingsService.getUserBookingsCollection(
+        const response = await bookingsService.getUserBookingsCollection(
             req.query,
             req.sessionData!.user.id,
         );
-        res.status(200).json(bookings);
+        res.status(200).json(response);
     },
 );
 
