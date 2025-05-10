@@ -5,6 +5,7 @@ import {
     createEventBodySchema,
     eventIdParamsSchema,
     getEventsCollectionQuerySchema,
+    updateEventBodySchema,
 } from "../schemas/events.schemas";
 import EventsService from "../services/events.service";
 
@@ -16,8 +17,8 @@ router.get(
     "/",
     validateRequest({ query: getEventsCollectionQuerySchema }),
     async (req, res) => {
-        const events = await eventsService.getEventsCollection(req.query);
-        res.status(200).json(events);
+        const response = await eventsService.getEventsCollection(req.query);
+        res.status(200).json(response);
     },
 );
 
@@ -42,6 +43,31 @@ router.get(
     async (req, res) => {
         const event = await eventsService.getEvent(req.params.eventId);
         res.status(200).json(event);
+    },
+);
+
+// Update an event by ID
+router.patch(
+    "/:eventId",
+    requireAuth({ event: ["update"] }),
+    validateRequest({ params: eventIdParamsSchema, body: updateEventBodySchema }),
+    async (req, res) => {
+        const event = await eventsService.updateEvent(
+            req.params.eventId,
+            req.body,
+        );
+        res.status(200).json(event);
+    },
+);
+
+// Delete an event by ID
+router.delete(
+    "/:eventId",
+    requireAuth({ event: ["delete"] }),
+    validateRequest({ params: eventIdParamsSchema }),
+    async (req, res) => {
+        const event = await eventsService.deleteEvent(req.params.eventId);
+        res.status(204).json(event);
     },
 );
 

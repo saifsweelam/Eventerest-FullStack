@@ -32,3 +32,6 @@ export const createEventBodySchema = z.object({
     ),
 });
 export type CreateEventBody = z.output<typeof createEventBodySchema>;
+
+export const updateEventBodySchema = createEventBodySchema.partial();
+export type UpdateEventBody = z.output<typeof updateEventBodySchema>;

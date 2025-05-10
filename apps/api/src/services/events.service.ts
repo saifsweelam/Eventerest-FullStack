@@ -2,6 +2,7 @@ import { prisma } from "../lib/db";
 import {
     CreateEventBody,
     GetEventsCollectionQuery,
+    UpdateEventBody,
 } from "../schemas/events.schemas";
 import { getCollectionArgs } from "../utils/collections.util";
 
@@ -53,6 +54,35 @@ export default class EventsService {
                 },
                 creatorId,
             },
+            include: this.defaultInclude,
+        });
+
+        return event;
+    }
+
+    async updateEvent(id: string, data: UpdateEventBody) {
+        const event = await prisma.event.update({
+            where: { id },
+            data: {
+                name: data.name,
+                description: data.description,
+                startDate: data.startDate,
+                endDate: data.endDate,
+                location: data.location,
+                tickets: data.tickets ? {
+                    deleteMany: {},
+                    create: data.tickets,
+                } : undefined,
+            },
+            include: this.defaultInclude,
+        });
+
+        return event;
+    }
+
+    async deleteEvent(id: string) {
+        const event = await prisma.event.delete({
+            where: { id },
             include: this.defaultInclude,
         });
 
