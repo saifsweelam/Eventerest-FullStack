@@ -4,6 +4,8 @@ import AuthProvider from "./providers/authProvider";
 import LoginPage from "./pages/auth/login/page";
 import RegisterPage from "./pages/auth/register/page";
 import RootLayout from "./pages/layout";
+import DefaultLayout from "./pages/default/layout";
+import LandingPage from "./pages/default/landing/page";
 
 function App() {
     return (
@@ -12,7 +14,9 @@ function App() {
                 <AuthProvider>
                     <RootLayout>
                         <Routes>
-                            <Route index element={<div>Home</div>} />
+                            <Route element={<DefaultLayout />} >
+                                <Route index element={<LandingPage />} />
+                            </Route>
 
                             <Route element={<AuthLayout />}>
                                 <Route path="login" element={<LoginPage />} />
