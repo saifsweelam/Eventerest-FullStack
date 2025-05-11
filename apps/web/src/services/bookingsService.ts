@@ -1,15 +1,27 @@
 import { apiClient } from "../lib/apiClient";
-import type { CollectionOptions, CollectionResponse, DefaultBooking } from "./types";
+import type {
+    CollectionOptions,
+    CollectionResponse,
+    DefaultBooking,
+} from "./types";
 
-export const getUserBookings = async ({ page = 1, limit = 10, sortBy, sortOrder = 'asc' }: CollectionOptions) => {
-    const { data } = await apiClient.get<CollectionResponse<DefaultBooking>>(`/api/bookings/my`, {
-        params: {
-            page,
-            limit,
-            sortBy,
-            sortOrder,
+export const getUserBookings = async ({
+    page = 1,
+    limit = 10,
+    sortBy,
+    sortOrder = "asc",
+}: CollectionOptions) => {
+    const { data } = await apiClient.get<CollectionResponse<DefaultBooking>>(
+        `/api/bookings/my`,
+        {
+            params: {
+                page,
+                limit,
+                sortBy,
+                sortOrder,
+            },
         },
-    });
+    );
     return data;
 };
 
@@ -27,13 +39,18 @@ export const createBooking = async (eventId: string, ticketId: string) => {
 };
 
 export const updateBooking = async (id: string, ticketId: string) => {
-    const { data } = await apiClient.put<DefaultBooking>(`/api/bookings/${id}`, {
-        ticketId,
-    });
+    const { data } = await apiClient.put<DefaultBooking>(
+        `/api/bookings/${id}`,
+        {
+            ticketId,
+        },
+    );
     return data;
 };
 
 export const deleteBooking = async (id: string) => {
-    const { data } = await apiClient.delete<DefaultBooking>(`/api/bookings/${id}`);
+    const { data } = await apiClient.delete<DefaultBooking>(
+        `/api/bookings/${id}`,
+    );
     return data;
 };

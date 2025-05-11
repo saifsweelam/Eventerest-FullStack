@@ -21,8 +21,9 @@ export default function HeroHome() {
                                 data-aos="fade-up"
                                 data-aos-delay={200}
                             >
-                                Our landing page template works on all devices, so you only have
-                                to set it up once, and get beautiful results forever.
+                                Our landing page template works on all devices,
+                                so you only have to set it up once, and get
+                                beautiful results forever.
                             </p>
                             <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
                                 <div data-aos="fade-up" data-aos-delay={400}>

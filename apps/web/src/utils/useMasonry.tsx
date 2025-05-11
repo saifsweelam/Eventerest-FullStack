@@ -33,7 +33,11 @@ const useMasonry = () => {
                             elementLeft(previous) === elementLeft(el)
                         ) {
                             el.style.marginTop =
-                                -(elementTop(el) - elementBottom(previous) - gapSize) + "px";
+                                -(
+                                    elementTop(el) -
+                                    elementBottom(previous) -
+                                    gapSize
+                                ) + "px";
                             break;
                         }
                     }

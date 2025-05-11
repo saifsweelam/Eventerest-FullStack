@@ -19,9 +19,10 @@ export default function Workflows() {
                             Map your product journey
                         </h2>
                         <p className="text-lg text-indigo-200/65">
-                            Simple and elegant interface to start collaborating with your team
-                            in minutes. It seamlessly integrates with your code and your
-                            favorite programming languages.
+                            Simple and elegant interface to start collaborating
+                            with your team in minutes. It seamlessly integrates
+                            with your code and your favorite programming
+                            languages.
                         </p>
                     </div>
                     {/* Spotlight items */}
@@ -67,8 +68,9 @@ export default function Workflows() {
                                         </span>
                                     </div>
                                     <p className="text-indigo-200/65">
-                                        Streamline the product development flow with a content
-                                        platform that's aligned across specs and insights.
+                                        Streamline the product development flow
+                                        with a content platform that's aligned
+                                        across specs and insights.
                                     </p>
                                 </div>
                             </div>
@@ -114,8 +116,9 @@ export default function Workflows() {
                                         </span>
                                     </div>
                                     <p className="text-indigo-200/65">
-                                        Streamline the product development flow with a content
-                                        platform that's aligned across specs and insights.
+                                        Streamline the product development flow
+                                        with a content platform that's aligned
+                                        across specs and insights.
                                     </p>
                                 </div>
                             </div>
@@ -161,8 +164,9 @@ export default function Workflows() {
                                         </span>
                                     </div>
                                     <p className="text-indigo-200/65">
-                                        Streamline the product development flow with a content
-                                        platform that's aligned across specs and insights.
+                                        Streamline the product development flow
+                                        with a content platform that's aligned
+                                        across specs and insights.
                                     </p>
                                 </div>
                             </div>

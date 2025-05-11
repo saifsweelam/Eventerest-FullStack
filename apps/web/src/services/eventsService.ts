@@ -1,15 +1,27 @@
 import { apiClient } from "../lib/apiClient";
-import type { CollectionResponse, DefaultEvent, CollectionOptions } from "./types";
+import type {
+    CollectionResponse,
+    DefaultEvent,
+    CollectionOptions,
+} from "./types";
 
-export const getEvents = async ({ page = 1, limit = 10, sortBy, sortOrder = "asc" }: CollectionOptions) => {
-    const { data } = await apiClient.get<CollectionResponse<DefaultEvent>>("/api/events", {
-        params: {
-            page,
-            limit,
-            sortBy,
-            sortOrder,
+export const getEvents = async ({
+    page = 1,
+    limit = 10,
+    sortBy,
+    sortOrder = "asc",
+}: CollectionOptions) => {
+    const { data } = await apiClient.get<CollectionResponse<DefaultEvent>>(
+        "/api/events",
+        {
+            params: {
+                page,
+                limit,
+                sortBy,
+                sortOrder,
+            },
         },
-    });
+    );
     return data;
 };
 

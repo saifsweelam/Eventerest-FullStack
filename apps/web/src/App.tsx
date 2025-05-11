@@ -14,7 +14,7 @@ function App() {
                 <AuthProvider>
                     <RootLayout>
                         <Routes>
-                            <Route element={<DefaultLayout />} >
+                            <Route element={<DefaultLayout />}>
                                 <Route index element={<LandingPage />} />
                             </Route>
 

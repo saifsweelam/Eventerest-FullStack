@@ -12,7 +12,7 @@ export type Event = {
     startDate: string;
     endDate: string;
     location: string;
-}
+};
 
 export type Ticket = {
     id: string;
@@ -24,19 +24,19 @@ export type Ticket = {
 export type Creator = {
     id: string;
     name: string;
-}
+};
 
 export type Booking = {
     id: string;
     userId: string;
     eventId: string;
     ticketId: string;
-}
+};
 
 export type DefaultEvent = Event & {
     tickets: Ticket[];
     creator: Creator;
-}
+};
 
 export type DefaultBooking = Booking & {
     event: Event;
@@ -46,4 +46,4 @@ export type DefaultBooking = Booking & {
 export type CollectionResponse<T> = {
     items: T[];
     total: number;
-}
+};

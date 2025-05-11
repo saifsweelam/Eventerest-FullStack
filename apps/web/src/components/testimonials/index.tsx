@@ -116,8 +116,9 @@ export default function Testimonials() {
                         Don't take our word for it
                     </h2>
                     <p className="text-lg text-indigo-200/65">
-                        We provide tech-first solutions that empower decision-makers to
-                        build healthier and happier workspaces from anywhere in the world.
+                        We provide tech-first solutions that empower
+                        decision-makers to build healthier and happier
+                        workspaces from anywhere in the world.
                     </p>
                 </div>
 
@@ -215,7 +216,10 @@ export default function Testimonials() {
                     >
                         {testimonials.map((testimonial, index) => (
                             <div key={index} className="group">
-                                <Testimonial testimonial={testimonial} category={category}>
+                                <Testimonial
+                                    testimonial={testimonial}
+                                    category={category}
+                                >
                                     {testimonial.content}
                                 </Testimonial>
                             </div>
@@ -249,7 +253,11 @@ export function Testimonial({
         >
             <div className="flex flex-col gap-4">
                 <div>
-                    <img src={testimonial.clientImg} height={36} alt="Client logo" />
+                    <img
+                        src={testimonial.clientImg}
+                        height={36}
+                        alt="Client logo"
+                    />
                 </div>
                 <p className="text-indigo-200/65 before:content-['“'] after:content-['”']">
                     {children}
