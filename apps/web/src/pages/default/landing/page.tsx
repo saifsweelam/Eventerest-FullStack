@@ -3,7 +3,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import PageIllustration from "../../../components/page-illustration";
 import Hero from "../../../components/hero";
-import Workflows from "../../../components/workflows";
+import LandingEvents from "../../../components/landing-events";
 import Features from "../../../components/features";
 import Testimonials from "../../../components/testimonials";
 import Cta from "../../../components/cta";
@@ -22,7 +22,7 @@ export default function LandingPage() {
         <>
             <PageIllustration />
             <Hero />
-            <Workflows />
+            <LandingEvents />
             <Features />
             <Testimonials />
             <Cta />
