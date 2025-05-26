@@ -9,15 +9,6 @@ import TestimonialImg06 from "../../assets/images/testimonial-06.jpg";
 import TestimonialImg07 from "../../assets/images/testimonial-07.jpg";
 import TestimonialImg08 from "../../assets/images/testimonial-08.jpg";
 import TestimonialImg09 from "../../assets/images/testimonial-09.jpg";
-import ClientImg01 from "../../assets/images/client-logo-01.svg";
-import ClientImg02 from "../../assets/images/client-logo-02.svg";
-import ClientImg03 from "../../assets/images/client-logo-03.svg";
-import ClientImg04 from "../../assets/images/client-logo-04.svg";
-import ClientImg05 from "../../assets/images/client-logo-05.svg";
-import ClientImg06 from "../../assets/images/client-logo-06.svg";
-import ClientImg07 from "../../assets/images/client-logo-07.svg";
-import ClientImg08 from "../../assets/images/client-logo-08.svg";
-import ClientImg09 from "../../assets/images/client-logo-09.svg";
 import TestimonialCard from "../testimonial-card";
 import TestimonialCategory from "../testimonial-category";
 import { BriefcaseBusiness, Layers, LocateFixed, PersonStanding, TextCursorInput } from "lucide-react";
@@ -53,7 +44,6 @@ const categories = [
 const testimonials = [
     {
         img: TestimonialImg01,
-        clientImg: ClientImg01,
         name: "MaKayla P.",
         company: "Frequent Festival Goer",
         content:
@@ -62,7 +52,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg02,
-        clientImg: ClientImg02,
         name: "Andrew K.",
         company: "Startup Enthusiast",
         content:
@@ -71,7 +60,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg03,
-        clientImg: ClientImg03,
         name: "Lucy D.",
         company: "Local Artist",
         content:
@@ -80,7 +68,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg04,
-        clientImg: ClientImg04,
         name: "Pavel M.",
         company: "Weekend Explorer",
         content:
@@ -89,7 +76,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg05,
-        clientImg: ClientImg05,
         name: "Miriam E.",
         company: "Event Organizer",
         content:
@@ -98,7 +84,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg06,
-        clientImg: ClientImg06,
         name: "Eloise V.",
         company: "Workshop Attendee",
         content:
@@ -107,7 +92,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg07,
-        clientImg: ClientImg07,
         name: "Pierre-Gilles L.",
         company: "Tourist from Paris",
         content:
@@ -116,7 +100,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg08,
-        clientImg: ClientImg08,
         name: "Danielle K.",
         company: "Busy Mom of 3",
         content:
@@ -125,7 +108,6 @@ const testimonials = [
     },
     {
         img: TestimonialImg09,
-        clientImg: ClientImg09,
         name: "Mary P.",
         company: "New in Town",
         content:
@@ -147,9 +129,11 @@ export default function Testimonials() {
                         Don't take our word for it
                     </h2>
                     <p className="text-lg text-indigo-200/65">
-                        We provide tech-first solutions that empower
-                        decision-makers to build healthier and happier
-                        workspaces from anywhere in the world.
+                        Our users love us! Check out what they have to say about their experiences with our platform.
+                        <br />
+                        <span className="text-indigo-200/65 font-semibold">
+                            Join the community and start your journey today!
+                        </span>
                     </p>
                 </div>
 

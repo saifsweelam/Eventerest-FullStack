@@ -1,6 +1,5 @@
 import BlurredShapeGray from "../../assets/images/blurred-shape-gray.svg";
 import BlurredShape from "../../assets/images/blurred-shape.svg";
-import FeaturesImage from "../../assets/images/features.png";
 
 export default function Features() {
     return (
@@ -49,13 +48,13 @@ export default function Features() {
                         className="flex justify-center pb-4 md:pb-12"
                         data-aos="fade-up"
                     >
-                        <img
+                        {/* <img
                             className="max-w-none"
                             src={FeaturesImage}
                             width={1104}
                             height={384}
                             alt="Features"
-                        />
+                        /> */}
                     </div>
                     {/* Items */}
                     <div className="mx-auto grid max-w-sm gap-12 sm:max-w-none sm:grid-cols-2 md:gap-x-14 md:gap-y-16 lg:grid-cols-3">
